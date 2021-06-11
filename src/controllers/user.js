@@ -30,15 +30,6 @@ export const createUser = async (data) => {
 }
 
 export const updateUser = async (where, data) => {
-  const keys = Object.keys(data)
-  if (keys.includes('type')) {
-    return {
-      body: {
-        message: 'You are not allowed to change this user type'
-      },
-      status: 403
-    }
-  }
   for (const key of keys) {
     await update(where, key, data[key])
   }

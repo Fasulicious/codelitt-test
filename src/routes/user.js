@@ -9,6 +9,11 @@ import {
   deleteUser
 } from '../controllers/user'
 
+import {
+  postValidator,
+  patchValidator
+} from '../utils/validator'
+
 const router = new Router({ prefix: '/user' })
 
 router.get('/', async ctx => {
@@ -30,23 +35,43 @@ router.get('/:id', async ctx => {
   ctx.status = status
 })
 
-router.patch('/:id', async ctx => {
-  const { id } = ctx.params
-  const data = ctx.request.body
+router.get('/tag/:tag', async ctx => {
+  const { tag } = ctx.params
   const {
     body,
     status
-  } = await updateUser({ id }, { ...data })
+  } = await getUsers({ tag })
+  ctx.body = body
+  ctx.status = status
+})
+
+router.patch('/:id', async ctx => {
+  const { id } = ctx.params
+  const data = ctx.request.body
+  const { value, error } = patchValidator(data, 'employee')
+  if (error) {  
+    console.log(error)
+    ctx.throw(400, 'Please read the documentation to check to the correct payload', { code: 'wrong_input' })
+  }
+  const {
+    body,
+    status
+  } = await updateUser({ id }, { ...value })
   ctx.body = body
   ctx.status = status
 })
 
 router.post('/', async ctx => {
   const data = ctx.request.body
+  const { value, error } = postValidator(data)
+  if (error) {  
+    console.log(error)
+    ctx.throw(400, 'Please read the documentation to check to the correct payload', { code: 'wrong_input' })
+  }
   const {
     body,
     status
-  } = await createUser(data)
+  } = await createUser(value)
   ctx.body = body
   ctx.status = status
 })
