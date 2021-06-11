@@ -3,12 +3,14 @@ services:
   backend:
     build: './'
     environment:
-      PORT: 2000
+      PORT: 3000
       DB_USER: 'fasushka'
       DB_NAME: 'challenge'
       DB_PASSWORD: 'fasushka'
       DB_HOST: 'pg'
       DB_PORT: 5432
+    ports:
+      - '8000:3000'
   pg:
     image: 'postgres:10'
     environment:

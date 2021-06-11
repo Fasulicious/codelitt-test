@@ -7,6 +7,9 @@ import cors from 'koa2-cors'
 import body from 'koa-body'
 import compress from 'koa-compress'
 
+import health from './routes/health'
+import user from './routes/user'
+
 const app = new Koa()
 
 app.use(cors())
@@ -27,6 +30,9 @@ app.use(async (ctx, next) => {
     }
   }
 })
+
+app.use(user.routes())
+app.use(health.routes())
 
 export default app
 
