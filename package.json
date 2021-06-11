@@ -5,9 +5,10 @@
   "main": "app.js",
   "scripts": {
     "start": "node -r esm src/app.js",
+    "deploy": "npm run lint && knex migrate:latest && npm run start",
     "dev": "nodemon",
-    "format": "standard --fix",
-    "lint": "standard",
+    "format": "standard ./src --fix",
+    "lint": "standard ./src",
     "test": "ava",
     "coverage": "nyc --reporter=text ava"
   },

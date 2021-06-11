@@ -32,5 +32,5 @@ export default app
 
 if (!module.parent) {
   const port = process.env.PORT || 3000
-  app.listen(port, () => console.log( `Server listening on port ${port}`))
+  app.listen(port, () => console.log(`Server listening on port ${port}`))
 }

@@ -1,0 +1,17 @@
+version: '3'
+services:
+  backend:
+    build: './'
+    environment:
+      PORT: 2000
+      DB_USER: 'fasushka'
+      DB_NAME: 'challenge'
+      DB_PASSWORD: 'fasushka'
+      DB_HOST: 'pg'
+      DB_PORT: 5432
+  pg:
+    image: 'postgres:10'
+    environment:
+      POSTGRES_DB: 'challenge'
+      POSTGRES_USER: 'fasushka'
+      POSTGRES_PASSWORD: 'fasushka'
