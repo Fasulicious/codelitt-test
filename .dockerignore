@@ -3,5 +3,7 @@
 .env.example
 .vscode
 .gitignore
+.nyc_output
+README.md
 
 node_modules
