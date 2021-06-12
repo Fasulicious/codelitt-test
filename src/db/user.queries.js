@@ -1,5 +1,3 @@
-'use strict'
-
 import db from './index'
 import CustomError from '../utils/custom.error'
 import logger from '../utils/logger'
@@ -26,7 +24,7 @@ export const create = async (user) => {
 
 export const update = async (where, updateKey, updateValue) => {
   try {
-    return await db('users').where(where).update(updateKey, updateValue)
+    return await db('users').where(where).update(updateKey, updateValue, '*')
   } catch (e) {
     log.error('Fail updating user at:', 'src/db/user.queries', e)
     throw new CustomError('db_error', 'Database error, try in a few', 500)

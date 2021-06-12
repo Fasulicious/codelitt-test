@@ -1,5 +1,3 @@
-'use strict'
-
 import {
   get,
   create,
@@ -21,7 +19,7 @@ export const getUsers = async (where, select) => {
     }
   }
   return {
-    body: Object.keys(where).length === 0 ? users : users[0],
+    body: Object.keys(where).length === 0 || Object.keys(where).includes('tag') ? users : users[0],
     status: 200
   }
 }
@@ -41,11 +39,12 @@ export const updateUser = async (where, data) => {
     log.error('Fail validation patch request at:', '/src/controllers/user', 'missmatch type and patch properties')
     throw new CustomError('wrong_input', 'Please read the documentation to check to the correct payload', 400)
   }
+  let updatedUsers
   for (const key of keys) {
-    await update(where, key, data[key])
+    updatedUsers = await update(where, key, data[key])
   }
   return {
-    body: (await get(where))[0],
+    body: updatedUsers[0],
     status: 200
   }
 }
