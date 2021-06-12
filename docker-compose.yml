@@ -9,6 +9,7 @@ services:
       DB_PASSWORD: 'fasushka'
       DB_HOST: 'pg'
       DB_PORT: 5432
+      NODE_ENV: 'development'
     ports:
       - '8000:3000'
   pg:

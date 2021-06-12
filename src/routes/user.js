@@ -14,6 +14,10 @@ import {
   patchValidator
 } from '../utils/validator'
 
+import logger from '../utils/logger'
+
+const log = logger.getLogger()
+
 const router = new Router({ prefix: '/user' })
 
 router.get('/', async ctx => {
@@ -49,8 +53,8 @@ router.patch('/:id', async ctx => {
   const { id } = ctx.params
   const data = ctx.request.body
   const { value, error } = patchValidator(data, 'employee')
-  if (error) {  
-    console.log(error)
+  if (error) {
+    log.error('Fail patch request at:', 'src/routes/user', error)
     ctx.throw(400, 'Please read the documentation to check to the correct payload', { code: 'wrong_input' })
   }
   const {
@@ -64,8 +68,8 @@ router.patch('/:id', async ctx => {
 router.post('/', async ctx => {
   const data = ctx.request.body
   const { value, error } = postValidator(data)
-  if (error) {  
-    console.log(error)
+  if (error) {
+    log.error('Fail post request at:', 'src/routes/user', error)
     ctx.throw(400, 'Please read the documentation to check to the correct payload', { code: 'wrong_input' })
   }
   const {

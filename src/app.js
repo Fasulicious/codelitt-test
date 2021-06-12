@@ -22,7 +22,9 @@ app.use(async (ctx, next) => {
   try {
     await next()
   } catch (e) {
-    console.log(e)
+    if (!e.statusCode && !e.status) {
+      console.log(e)
+    }
     ctx.status = e.statusCode || e.status || 500
     ctx.body = {
       code: e.code || 'unhandled_error',
