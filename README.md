@@ -1,59 +1,81 @@
-## Instructions
+# CODELITT CHALLENGE
 
-The goal of this exercise is to create a backend using Node using the REST arquitecture.
+## OVERVIEW
+This is a simple crud as requested by the codelitt challenge
 
-### The Task
+## Requirements
+- npm
+- node
+- docker
+- docker-compose
 
-In this task, we are building backend of an application that helps us managing our team using REST.
+## How to install
+1.  Clone the repo
+    ```
+    git clone git@gitlab.com:codelittinc/node-rest-interview-project-fidel-ugaldi.git
+    git checkout challenge
+    ```
 
-### Features and Requirements
-- A member has a name and a type the late one can be an employee or a contractor.
-- - If it's a contractor, we want to store the the duration of the contract as an integer.
-- - If it's an employee, we need to store their role, for instance: Software Engineer, Project Manager and so on.
-- A member can be tagged, for instance: C#, Angular, General Frontend, Seasoned Leader and so on. (Tags will likely be used as filters later, so keep that in mind)
-- We need to offer a REST CRUD for all the information above.
+2.  (Optional) Create .env file following .env.example if you want to run it locally for development
 
-### Notes:
+3.  Install dependencies
+    ```
+    npm install
+    ```
 
-1. You can use any Node framework
-2. Make sure to provide a tutorial on how to run your application
-3. Feel free to use any database
+4.  (Optional) Verify test and coverage
+    ```
+    npm run test
+    npm run coverage
+    ```
 
-## Evaluation
-| Functionality     |                                                                | Possible Points |
-|-------------------|----------------------------------------------------------------|-----------------|
-|                   | Matches the proposed requirements                              |              20 |
-|                   | Implements REST correctly                                      |              15 |
-|                   | Separation of business logic and persistence layers            |              15 |
-|                   | Input validations                                              |               5 |
-|                   | Standard HTTP error codes                                      |               5 |
-| **Code Quality**  |                                                                |                 |
-|                   | Code formatting, readability, maintainability, etc             |               5 |
-|                   | Folders and packages structure                                 |               5 |
-| **DevOps**        |                                                                |                 |
-|                   | Docker image to build/run the project                          |              10 |
-|                   | DB migrations                                                  |               5 |
-| **Documentation** |                                                                |                 |
-|                   | Documentation about the work done, how to run the project, etc |               5 |
-| **Testing**       |                                                                |                 |
-|                   | Has tests                                                      |              10 |
-| **Total**         |                                                                |             100 |
+5.  Deploy:
 
+5.1 Locally
+    ```
+    npx knex migrate:latest
+    npm run dev
+    ```
 
-### Bonus Points:
-1. If you deploy the application in any server and share the link with us
-2. If provide thoughts on what you could improve on your code given more time and incentives
+5.2 Stage or Production:
+    ```
+    docker-compose up
+    ```
 
-## F.A.Q.
+6.  Server wille be listening on port 3000 locally and port 8000 for prod.
 
-### Is it necessary build a frontend?
-No, this is a simply backend exercise.
+## Considerations
 
-### How do you evaluate the exercise?
-For every exercise we have two senior backend engineers from our team reviewing the code and the functionality and giving a score for each line item as shown in the previous table.
+Project is up at 68.183.110.145:8000
 
-### How can I deliver the exercise?
-To deliver the exercise, you should clone this repository and work on a new branch. When you'll consider it completed, just push the branch and open a Merge Request.
+GET routes:
+    ```
+    /user
+    /user/:id
+    /user/tag/:tag
+    ```
 
-### Will I have access to the evaluation?
-By default we only send the result, however you can feel free to request the full evaluation and we will share it with you as well as the final score.
+POST route:
+    ```
+    /user
+    ```
+
+PATCH route:
+    ```
+    /user/:id
+    ```
+DELETE route:
+    ```
+    /user/:id
+    ```
+
+Keep in mind when create a new user:
+-   type property only accepts values of ['contractor', 'employee']
+-   tag property only accepts values of ['c_sharp', 'angular', 'general_frontend', 'seasoned_leader']
+-   role property only accpets values of ['software_engineer', 'project_manager']
+
+## Next Steps
+
+-   Add a documentation about the endpoints, it could be with swagger but I rather use apidocs.
+-   Connect the project with some online logger service as logdna for monitoring.
+-   Register our database in some service such as redash, for easy monitoring.
